@@ -8,4 +8,6 @@ router.post('/',createCurso);
 router.put('/:id',updateCurso);
 router.delete("/:id",deleteCursos);
 
+
+
 export default router;

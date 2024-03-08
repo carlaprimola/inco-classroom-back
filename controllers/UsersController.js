@@ -1,81 +1,76 @@
-import CursosModel from "../models/CursosModel.js";
+import UsersModel from "../models/UsersModel.js";
 
-//metodo para obtener todos los cursos
-export const getCursos = async (req, res) => {
+// Método para obtener todos los usuarios
+export const getUsuarios = async (req, res) => {
     try {
-        const cursos = await CursosModel.findAll();
-        res.status(200).json(cursos);
-        console.log(cursos);
-
+        const usuarios = await UsersModel.findAll();
+        res.status(200).json(usuarios);
     } catch (error) {
-        res.status(500).json({ message: "Error al obtener los cursos", error });
+        res.status(500).json({ message: "Error al obtener los usuarios", error });
     }
 }
 
-//metodo para obtener un curso
-
-export const getCursoById = async (req, res) => {
+// Método para obtener un usuario por su ID
+export const getUsuarioById = async (req, res) => {
     const { id } = req.params;
     try {
-        const curso = await CursosModel.findByPk(id);
-        if (!curso) {
-            return res.status(404).json({ message: "Curso no encontrado" });
+        const usuario = await UsersModel.findByPk(id);
+        if (!usuario) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
         }
-        res.status(200).json(curso);
+        res.status(200).json(usuario);
     } catch (error) {
-        res.status(500).json({ message: "Error al obtener el curso", error });
+        res.status(500).json({ message: "Error al obtener el usuario", error });
     }
 }
 
-//metodo para crear un curso
-export const createCurso = async (req, res) => {
-    const { NombreCurso, Descripcion, DocenteACargo, imageUrl } = req.body;
+// Método para crear un usuario
+export const createUsuario = async (req, res) => {
+    const { Nombre, Email, Contraseña, TipoUsuario } = req.body;
     try {
-        const nuevoCurso = await CursosModel.create({
-            NombreCurso,
-            Descripcion,
-            DocenteACargo,
-            imageUrl
+        const nuevoUsuario = await UsersModel.create({
+            Nombre,
+            Email,
+            Contraseña,
+            TipoUsuario
         });
-        res.status(201).json(nuevoCurso);
+        res.status(201).json(nuevoUsuario);
     } catch (error) {
-        res.status(500).json({ message: "Error al crear el curso", error });
+        res.status(500).json({ message: "Error al crear el usuario", error });
     }
 }
 
-//metodo para editar un curso
-export const updateCurso = async (req, res) => {
+// Método para actualizar un usuario
+export const updateUsuario = async (req, res) => {
     const { id } = req.params;
-    const { NombreCurso, Descripcion, DocenteACargo, imageUrl } = req.body;
+    const { Nombre, Email, Contraseña, TipoUsuario } = req.body;
     try {
-        const cursoExistente = await CursosModel.findByPk(id);
-        if (!cursoExistente) {
-            return res.status(404).json({ message: "Curso no encontrado" });
+        const usuarioExistente = await UsersModel.findByPk(id);
+        if (!usuarioExistente) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
         }
-        await cursoExistente.update({
-            NombreCurso,
-            Descripcion,
-            DocenteACargo,
-            imageUrl
+        await usuarioExistente.update({
+            Nombre,
+            Email,
+            Contraseña,
+            TipoUsuario
         });
-        res.status(200).json({ message: "Curso actualizado correctamente" });
+        res.status(200).json({ message: "Usuario actualizado correctamente" });
     } catch (error) {
-        res.status(500).json({ message: "Error al editar el curso", error });
+        res.status(500).json({ message: "Error al actualizar el usuario", error });
     }
 }
 
-//metodo para eliminar un curso
-
-export const deleteCursos = async (req,res)=>{
-    const id = req.params.id
-    console.log(id);
+// Método para eliminar un usuario
+export const deleteUsuario = async (req, res) => {
+    const { id } = req.params;
     try {
-        await CursosModel.deleteOne({_id:id},req.body);
-        res.status(200).json({message:"se ha eliminado",id});
-    }  catch (error) {
-        res.status(500).json({message:"no se eliminó correctamente", error})
-        
+        const usuarioEliminado = await UsersModel.destroy({ where: { id } });
+        if (!usuarioEliminado) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+        res.status(200).json({ message: "Usuario eliminado correctamente" });
+    } catch (error) {
+        res.status(500).json({ message: "Error al eliminar el usuario", error });
     }
 }
-
-
