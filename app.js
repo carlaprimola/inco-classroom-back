@@ -5,12 +5,14 @@ import db from "./database/db.js"
 //importamos el enrutador
 import cursosRoutes from './routes/routes.js'
 import usersRoutes from './routes/users.js'
+import contentRoutes from './routes/content.js'
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
 app.use('/cursos', cursosRoutes)
+app.use('/contenido', contentRoutes)
 app.use('/usuarios', usersRoutes)
 
 // app.use('/uploads',express.static('uploads'));
