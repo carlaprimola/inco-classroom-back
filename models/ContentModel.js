@@ -1,7 +1,7 @@
 import db from '../database/db.js'
 import { DataTypes } from 'sequelize'
 
-const ContentModel = db.define('contenidocurso',{
+const ContentModel = db.define('contenidocursos',{
     TituloMaterial: {type: DataTypes.STRING},
     TipoRecurso: { 
         type: DataTypes.ENUM('Link', 'Video', 'Presentacion'),

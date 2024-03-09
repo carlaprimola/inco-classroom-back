@@ -1,12 +1,11 @@
 import ContentModel from "../models/ContentModel.js";
 
-//metodo para obtener todos los temarios
+// Método para obtener todos los temarios
 export const getContent = async (req, res) => {
     try {
         const contentCourses = await ContentModel.findAll();
         res.status(200).json(contentCourses);
         console.log(contentCourses);
-
     } catch (error) {
         res.status(500).json({ message: "Error al obtener el contenido de los cursos", error });
     }
