@@ -1,19 +1,20 @@
 import express from "express";
 import cors from 'cors'
-//importamos la conexion a la base de datos
 import db from "./database/db.js"
-//importamos el enrutador
 import cursosRoutes from './routes/routes.js'
 import usersRoutes from './routes/users.js'
+// import filterUserType from './middlewares/authMiddleware.js'
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
+
+// Middleware para filtrar usuarios con roles específicos
+// app.use('/admin', filterUserType(['Administrador']), adminRoutes);
+
 app.use('/cursos', cursosRoutes)
 app.use('/usuarios', usersRoutes)
-
-// app.use('/uploads',express.static('uploads'));
 
 try {
     await db.authenticate()
