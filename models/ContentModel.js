@@ -1,5 +1,6 @@
 import db from '../database/db.js';
 import { DataTypes } from 'sequelize';
+import CoursesModel from './CoursesModel.js';
 
 
 const ContentModel = db.define('contenidocursos', {
@@ -17,13 +18,19 @@ const ContentModel = db.define('contenidocursos', {
     Contenido: {
         type: DataTypes.TEXT
     },
-    descripcion: {
+    Descripcion: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: true
+    },
+    cursos_ID: {
+        type: DataTypes.INTEGER,
+        allowNull: true
     }
-});
+}, 
+        {
+        timestamps:false
+        }
+);
 
-
-ContentModel.belongsTo(db.models.CoursesModel, { foreignKey: 'contenidocursos_ID' });
-
+ContentModel.belongsTo(CoursesModel, { foreignKey: 'cursos_ID' });
 export default ContentModel;

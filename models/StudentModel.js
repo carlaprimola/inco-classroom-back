@@ -34,8 +34,12 @@ const StudentModel = db.define('estudiantes', {
             model: AcademicTrackingModel,
             key: 'ID'
           }
-    }
-});
+        }}, 
+        {
+        timestamps:false
+        }
+        
+    );
 
 StudentModel.belongsTo(CoursesModel, { foreignKey: 'cursos_ID' });
 StudentModel.belongsTo(AcademicTrackingModel, { foreignKey: 'seguimientoacademico_ID' });

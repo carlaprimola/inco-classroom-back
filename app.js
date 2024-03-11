@@ -3,7 +3,7 @@ import cors from 'cors'
 //importamos la conexion a la base de datos
 import db from "./database/db.js"
 //importamos el enrutador
-import cursosRoutes from './routes/routes.js'
+import cursosRoutes from './routes/courses.js'
 import usersRoutes from './routes/users.js'
 import contentRoutes from './routes/content.js'
 

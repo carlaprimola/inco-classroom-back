@@ -24,8 +24,12 @@ const TeacherModel = db.define('profesor', {
             model: CoursesModel,
             key: 'ID'
         }
+    }}, 
+    {
+    timestamps:false
     }
-});
+    
+);
 
 TeacherModel.belongsTo(CoursesModel, { foreignKey: 'cursos_ID' });
 TeacherModel.belongsTo(UsersModel, { foreignKey: 'usuarios_ID' });

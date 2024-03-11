@@ -19,7 +19,11 @@ const AcademicTrackingModel = db.define('seguimientoacademico', {
     Evaluaciones: {
         type: DataTypes.TEXT,
         allowNull: true
+    }}, 
+    {
+    timestamps:false
     }
-});
+    
+);
 
 export default AcademicTrackingModel;

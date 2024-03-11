@@ -28,9 +28,12 @@ const UsersModel = db.define('usuarios', {
           model: RolesModel,
           key: 'ID'
     }
-},
+}}, 
+    {
+    timestamps:false
+    }
     
-});
+);
 
 UsersModel.belongsTo(RolesModel, { foreignKey: 'roles_ID' });
 

@@ -10,7 +10,11 @@ const RolesModel = db.define('roles', {
     TipoRol: {
         type: DataTypes.ENUM('Estudiante', 'Docente'),
         allowNull: false
+    }}, 
+    {
+    timestamps:false
     }
-});
+    
+);
 
 export default RolesModel;
