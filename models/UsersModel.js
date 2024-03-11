@@ -6,11 +6,12 @@ const UsersModel = db.define('usuarios', {
     ID: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
+        allowNull: false
     },
     Nombre: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull:true
     },
     Email: {
         type: DataTypes.STRING,
@@ -22,10 +23,13 @@ const UsersModel = db.define('usuarios', {
     },
     roles_ID: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: false,
+        references: {
+          model: RolesModel,
+          key: 'ID'
     }
-}, {
-    timestamps: false
+},
+    
 });
 
 UsersModel.belongsTo(RolesModel, { foreignKey: 'roles_ID' });

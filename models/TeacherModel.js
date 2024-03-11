@@ -1,5 +1,7 @@
 import db from '../database/db.js';
 import { DataTypes } from 'sequelize';
+import UsersModel from './UsersModel.js';
+import CoursesModel from './CoursesModel.js';
 
 const TeacherModel = db.define('profesor', {
     ID: {
@@ -9,11 +11,19 @@ const TeacherModel = db.define('profesor', {
     },
     usuarios_ID: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: UsersModel,
+            key: 'ID'
+        }
     },
     cursos_ID: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: CoursesModel,
+            key: 'ID'
+        }
     }
 });
 
