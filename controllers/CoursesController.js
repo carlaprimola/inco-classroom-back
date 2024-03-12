@@ -32,7 +32,7 @@ export const getCourseById = async (req, res) => {
 
 // Método para crear un Curso
 export const createCourse = async (req, res) => {
-    const { NombreCurso, imageUrl, contenidocursos_ID } = req.body;
+    const { NombreCurso, imageUrl, contenidocurso_ID } = req.body;
     try {
         const newCourse = await CoursesModel.create({
             NombreCurso,
