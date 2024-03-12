@@ -17,4 +17,6 @@ const RolesModel = db.define('roles', {
     
 );
 
+
+
 export default RolesModel;

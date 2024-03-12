@@ -1,10 +1,16 @@
 import CoursesModel from "../models/CoursesModel.js";
+import ContentModel from "../models/ContentModel.js";
 
 // Método para obtener todos los Cursos
 export const getCourses = async (req, res) => {
     try {
-        const Courses = await CoursesModel.findAll();
+        const Courses = await CoursesModel.findAll({
+            include: [ContentModel],
+        });
+        
         res.status(200).json(Courses);
+
+        
     } catch (error) {
         res.status(500).json({ message: "Error al obtener los Cursos", error });
     }
@@ -31,7 +37,7 @@ export const createCourse = async (req, res) => {
         const newCourse = await CoursesModel.create({
             NombreCurso,
             imageUrl,
-            contenidocursos_ID
+            contenidocurso_ID
         });
         res.status(201).json(newCourse);
     } catch (error) {
@@ -42,7 +48,7 @@ export const createCourse = async (req, res) => {
 // Método para editar un Curso
 export const updateCourse = async (req, res) => {
     const { id } = req.params;
-    const { NombreCurso, imageUrl, contenidocursos_ID } = req.body;
+    const { NombreCurso, imageUrl, contenidocurso_ID } = req.body;
     try {
         const CourseExistente = await CoursesModel.findByPk(id);
         if (!CourseExistente) {
@@ -51,7 +57,7 @@ export const updateCourse = async (req, res) => {
         await CourseExistente.update({
             NombreCurso,
             imageUrl,
-            contenidocursos_ID
+            contenidocurso_ID
         });
         res.status(200).json({ message: "Curso actualizado correctamente" });
     } catch (error) {

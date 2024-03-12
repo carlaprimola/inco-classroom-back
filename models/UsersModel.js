@@ -23,17 +23,17 @@ const UsersModel = db.define('usuarios', {
     },
     roles_ID: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: RolesModel,
-          key: 'ID'
+        allowNull: false
     }
-}}, 
-    {
-    timestamps:false
+}, 
+{
+    timestamps: false,
+    // Configuración de la referencia de la clave foránea
+    references: {
+        model: RolesModel,
+        key: 'ID'
     }
-    
-);
+});
 
 UsersModel.belongsTo(RolesModel, { foreignKey: 'roles_ID' });
 

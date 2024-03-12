@@ -1,11 +1,14 @@
 import UsersModel from "../models/UsersModel.js";
-
+import RolesModel from "../models/RolesModel.js";
 // Método para obtener todos los Users
 export const getUsers = async (req, res) => {
     try {
-        const Users = await UsersModel.findAll();
+        const Users = await UsersModel.findAll({
+            include: [RolesModel],
+        });
         res.status(200).json(Users);
     } catch (error) {
+        console.error(error); // Imprime el error en la consola
         res.status(500).json({ message: "Error al obtener los Users", error });
     }
 }

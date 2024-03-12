@@ -1,5 +1,6 @@
 import db from '../database/db.js';
-import { DataTypes } from 'sequelize';
+import { DataTypes } from 'sequelize'; 
+import ContentModel from './ContentModel.js';
 
 
 const CoursesModel = db.define('cursos', {
@@ -13,6 +14,9 @@ const CoursesModel = db.define('cursos', {
     },
     imageUrl: {
         type: DataTypes.STRING
+    },
+    contenidocurso_ID: {
+        type: DataTypes.STRING
     }
 }, {
     timestamps: false
@@ -20,5 +24,7 @@ const CoursesModel = db.define('cursos', {
 });
 
 
+CoursesModel.belongsTo(ContentModel, { foreignKey: 'contenidocurso_ID' });
+// console.log(CoursesModel.hasMany(ContentModel))
 
 export default CoursesModel;
