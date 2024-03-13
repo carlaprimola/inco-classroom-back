@@ -21,8 +21,10 @@ const AcademicTrackingModel = db.define('seguimientoacademico', {
         allowNull: true
     }}, 
     {
-    timestamps:false
-    }
+    timestamps:false,
+    tableName: 'seguimientoacademico'
+    },
+    
     
 );
 

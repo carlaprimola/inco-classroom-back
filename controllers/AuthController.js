@@ -1,41 +1,32 @@
 // AuthController.js
 
-// Simulación de una base de datos de usuarios
-const users = [
-    { id: 1, username: 'usuario1', password: 'contraseña1', role: 'Estudiante' },
-    { id: 2, username: 'usuario2', password: 'contraseña2', role: 'Docente' }
-];
+import jwt from 'jsonwebtoken';
+import UsersModel from '../models/UsersModel.js';
+import RolesModel from '../models/RolesModel.js';
 
-// Método para manejar el inicio de sesión de un usuario
-const login = (req, res) => {
-    const { username, password } = req.body;
 
-    const user = users.find(u => u.username === username && u.password === password);
+export const loginUser = async (req, res) => {
+    const { email, contraseña } = req.body;
 
-    if (user) {
-        // Aquí podrías generar un token JWT para la autenticación
-        res.status(200).json({ message: 'Inicio de sesión exitoso', user });
-    } else {
-        res.status(401).json({ message: 'Credenciales inválidas' });
+    try {
+        // Busca al usuario por su correo electrónico en la base de datos
+        const user = await UsersModel.findOne({ 
+            where: { Email: email },
+            include: [RolesModel] // Incluir la relación con el modelo de roles
+        });
+
+        // Verifica si el usuario existe y si la contraseña es válida
+        if (!user || user.Contraseña !== contraseña) {
+            return res.status(401).json({ message: 'Credenciales inválidas' });
+        }
+
+        // Genera el token JWT utilizando la clave secreta
+        const token = jwt.sign({ userId: user.ID, roleId: user.roles_ID }, 'tu_clave_secreta', { expiresIn: '1h' });
+
+        // Devuelve el token como respuesta
+        res.status(200).json({ token });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al iniciar sesión', error });
     }
-}
-
-// Middleware para verificar la autenticación del usuario
-const authenticateUser = (req, res, next) => {
-    // Aquí podrías implementar la lógica para verificar la autenticación del usuario mediante un token JWT
-    // Por simplicidad, se omite en este ejemplo
-
-    next();
-}
-
-// Método para cerrar sesión de un usuario
-const logout = (req, res) => {
-    // Aquí podrías implementar la lógica para cerrar sesión
-}
-
-// Exportar los métodos del controlador
-module.exports = {
-    login,
-    authenticateUser,
-    logout
 };

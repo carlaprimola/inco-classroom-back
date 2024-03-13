@@ -7,6 +7,9 @@ import cursosRoutes from './routes/courses.js'
 import usersRoutes from './routes/users.js'
 import contentRoutes from './routes/content.js'
 
+import studentRoutes from './routes/student.js'
+// import loginRoutes from './routes/auth.js'
+
 const app = express()
 
 app.use(cors())
@@ -14,8 +17,10 @@ app.use(express.json())
 app.use('/cursos', cursosRoutes)
 app.use('/contenido', contentRoutes)
 app.use('/usuarios', usersRoutes)
+app.use('/student', studentRoutes)
+// app.use('/login',loginRoutes)
 
-// app.use('/uploads',express.static('uploads'));
+
 
 try {
     await db.authenticate()

@@ -44,6 +44,6 @@ const StudentModel = db.define('estudiantes', {
 StudentModel.belongsTo(UsersModel, { foreignKey: 'usuarios_ID' });
 StudentModel.belongsTo(CoursesModel, { foreignKey: 'cursos_ID' });
 StudentModel.belongsTo(AcademicTrackingModel, { foreignKey: 'seguimientoacademico_ID' });
-    
+
 
 export default StudentModel;
