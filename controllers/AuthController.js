@@ -1,32 +1,21 @@
-// AuthController.js
-
 import jwt from 'jsonwebtoken';
-import UsersModel from '../models/UsersModel.js';
-import RolesModel from '../models/RolesModel.js';
 
-
-export const loginUser = async (req, res) => {
-    const { email, contraseña } = req.body;
-
+// Controlador de inicio de sesión
+export const login = async (req, res) => {
     try {
-        // Busca al usuario por su correo electrónico en la base de datos
-        const user = await UsersModel.findOne({ 
-            where: { Email: email },
-            include: [RolesModel] // Incluir la relación con el modelo de roles
-        });
+        const user = req.user; // Suponiendo que el middleware authenticateUser ha almacenado el usuario autenticado en req.user
 
-        // Verifica si el usuario existe y si la contraseña es válida
-        if (!user || user.Contraseña !== contraseña) {
-            return res.status(401).json({ message: 'Credenciales inválidas' });
+        if (!user) {
+            return res.status(401).json({ message: 'Usuario no autenticado' });
         }
 
-        // Genera el token JWT utilizando la clave secreta
-        const token = jwt.sign({ userId: user.ID, roleId: user.roles_ID }, 'tu_clave_secreta', { expiresIn: '1h' });
+        // Genera un token JWT con la ID del usuario
+        const token = jwt.sign({ userId: user.id }, 'mi_secreto', { expiresIn: '1h' });
 
-        // Devuelve el token como respuesta
+        // Devuelve el token JWT en la respuesta
         res.status(200).json({ token });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Error al iniciar sesión', error });
+        res.status(500).json({ message: "Error al iniciar sesión", error });
     }
-};
+}

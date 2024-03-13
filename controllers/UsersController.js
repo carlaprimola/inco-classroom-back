@@ -1,5 +1,8 @@
 import UsersModel from "../models/UsersModel.js";
 import RolesModel from "../models/RolesModel.js";
+import  jwt  from "jsonwebtoken";
+import bcrypt from "bcrypt";
+
 // Método para obtener todos los Users
 export const getUsers = async (req, res) => {
     try {
@@ -28,19 +31,52 @@ export const getUserById = async (req, res) => {
 }
 
 // Método para crear un User
+// export const createUser = async (req, res) => {
+//     const { Nombre, Email, Contraseña, roles_ID } = req.body; // Se elimina TipoUser ya que no está en el modelo
+//     try {
+//         const newUser = await UsersModel.create({
+//             Nombre,
+//             Email,
+//             Contraseña,
+//             roles_ID
+//         });
+//         res.status(201).json(newUser);
+//     } catch (error) {
+//         res.status(500).json({ message: "Error al crear el User", error });
+//     }
+// }
+
+
 export const createUser = async (req, res) => {
-    const { Nombre, Email, Contraseña } = req.body; // Se elimina TipoUser ya que no está en el modelo
+    const { Nombre, Email, Contraseña, roles_ID } = req.body;
     try {
+        // Verificar si el correo electrónico ya está en uso
+        const existingUser = await UsersModel.findOne({ where: { Email: Email } });
+        if (existingUser) {
+            return res.status(400).json({ message: "El correo electrónico ya está en uso" });
+        }
+
+        // Hashear la contraseña
+        const hashedPassword = await bcrypt.hash(Contraseña, 10);
+
+        // Crear un nuevo usuario en la base de datos
         const newUser = await UsersModel.create({
             Nombre,
             Email,
-            Contraseña
+            Contraseña: hashedPassword,
+            roles_ID
         });
-        res.status(201).json(newUser);
+
+        // Generar el token JWT
+        const token = jwt.sign({ userId: newUser.id, email: newUser.Email }, 'secret_key', { expiresIn: '1h' });
+
+        // Enviar la respuesta con el token y los datos del usuario
+        res.status(201).json({ message: "Usuario creado exitosamente", user: newUser, token });
     } catch (error) {
-        res.status(500).json({ message: "Error al crear el User", error });
+        res.status(500).json({ message: "Error al crear el usuario", error });
     }
-}
+};
+
 
 // Método para actualizar un User
 export const updateUser = async (req, res) => {
