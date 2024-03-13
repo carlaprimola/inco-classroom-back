@@ -30,23 +30,6 @@ export const getUserById = async (req, res) => {
     }
 }
 
-// Método para crear un User
-// export const createUser = async (req, res) => {
-//     const { Nombre, Email, Contraseña, roles_ID } = req.body; // Se elimina TipoUser ya que no está en el modelo
-//     try {
-//         const newUser = await UsersModel.create({
-//             Nombre,
-//             Email,
-//             Contraseña,
-//             roles_ID
-//         });
-//         res.status(201).json(newUser);
-//     } catch (error) {
-//         res.status(500).json({ message: "Error al crear el User", error });
-//     }
-// }
-
-
 export const createUser = async (req, res) => {
     const { Nombre, Email, Contraseña, roles_ID } = req.body;
     try {
@@ -59,7 +42,6 @@ export const createUser = async (req, res) => {
         // Hashear la contraseña
         const hashedPassword = await bcrypt.hash(Contraseña, 10);
 
-        // Crear un nuevo usuario en la base de datos
         const newUser = await UsersModel.create({
             Nombre,
             Email,
