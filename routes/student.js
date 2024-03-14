@@ -1,13 +1,13 @@
 // student.js
 import express from 'express';
 // import authenticateStudent from '../middleware/authenticateStudent.js';
-import { getStudentById, getStudentDashboard } from '../controllers/StudentController.js';
+import { getStudentById, getStudents } from '../controllers/StudentController.js';
 import { authenticateUser } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 // Ruta para obtener el dashboard del estudiante
-router.get('/dashboard', authenticateUser, getStudentDashboard);
+router.get('/', authenticateUser, getStudents);
 router.get('/:id', authenticateUser, getStudentById);
 
 // authenticateStudent,

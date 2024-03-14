@@ -6,9 +6,10 @@ import db from "./database/db.js"
 import cursosRoutes from './routes/courses.js'
 import usersRoutes from './routes/users.js'
 import contentRoutes from './routes/content.js'
-
 import studentRoutes from './routes/student.js'
 import authRoutes from './routes/auth.js'
+
+// require('dotenv').config();
 
 const app = express()
 
@@ -18,9 +19,7 @@ app.use('/cursos', cursosRoutes)
 app.use('/contenido', contentRoutes)
 app.use('/usuarios', usersRoutes)
 app.use('/student', studentRoutes)
-app.use('/auth', authRoutes)
-// app.use('/login',loginRoutes)
-
+app.use('/login', authRoutes) 
 
 
 try {

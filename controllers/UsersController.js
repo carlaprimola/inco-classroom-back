@@ -12,7 +12,7 @@ export const getUsers = async (req, res) => {
         res.status(200).json(Users);
     } catch (error) {
         console.error(error); // Imprime el error en la consola
-        res.status(500).json({ message: "Error al obtener los Users", error });
+        res.status(500).json({ message: "Error al obtener los Usuarios", error });
     }
 }
 
@@ -20,13 +20,13 @@ export const getUsers = async (req, res) => {
 export const getUserById = async (req, res) => {
     const { id } = req.params;
     try {
-        const User = await UsersModel.findByPk(id);
+        const User = await UsersModel.findByPk(id, { include: RolesModel });
         if (!User) {
-            return res.status(404).json({ message: "User no encontrado" });
+            return res.status(404).json({ message: "Usuario no encontrado" });
         }
         res.status(200).json(User);
     } catch (error) {
-        res.status(500).json({ message: "Error al obtener el User", error });
+        res.status(500).json({ message: "Error al obtener el Usuario", error });
     }
 }
 

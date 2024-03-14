@@ -2,6 +2,7 @@ import db from '../database/db.js';
 import { DataTypes } from 'sequelize';
 import RolesModel from './RolesModel.js';
 
+
 const UsersModel = db.define('usuarios', {
     ID: {
         type: DataTypes.INTEGER,
@@ -25,6 +26,7 @@ const UsersModel = db.define('usuarios', {
         type: DataTypes.INTEGER,
         allowNull: false
     }
+    
 }, 
 {
     timestamps: false,
@@ -36,6 +38,7 @@ const UsersModel = db.define('usuarios', {
 });
 
 UsersModel.belongsTo(RolesModel, { foreignKey: 'roles_ID' });
+
 
 export default UsersModel;
 
