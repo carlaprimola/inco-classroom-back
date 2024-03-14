@@ -18,8 +18,8 @@ app.use('/cursos', cursosRoutes)
 app.use('/contenido', contentRoutes)
 app.use('/usuarios', usersRoutes)
 app.use('/student', studentRoutes)
-app.use('/auth', authRoutes)
-// app.use('/login',loginRoutes)
+app.use('/login', authRoutes)
+
 
 
 
