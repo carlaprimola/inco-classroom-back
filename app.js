@@ -8,6 +8,7 @@ import usersRoutes from './routes/users.js'
 import contentRoutes from './routes/content.js'
 import studentRoutes from './routes/student.js'
 import authRoutes from './routes/auth.js'
+import "dotenv/config.js"
 
 // require('dotenv').config();
 

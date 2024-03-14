@@ -10,11 +10,12 @@ export const getStudents = async (req, res) => {
         const role = await RolesModel.findOne( {where: { TipoRol: 'Estudiante' }});
 
         if (role) {
-            const studentInfo = await StudentModel.findOne({
+            const studentInfo = await StudentModel.findAll({
                 include: [
                     {
                         model: UsersModel,
-                        where: { roles_ID: role.ID }
+                        where: { roles_ID: role.ID}
+                        
                     },
                     {
                         model: CoursesModel,
@@ -29,12 +30,14 @@ export const getStudents = async (req, res) => {
             });
 
             res.status(200).json(studentInfo);
+            console.log("Ficha estudiante 📕 ",studentInfo)
         } else {
             res.status(404).json({ message: 'No se encontró el rol de Estudiante' });
         }
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error al obtener la información del estudiante", error });
+        
     }
 };
 

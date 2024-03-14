@@ -18,7 +18,9 @@ export const loginUser = async (req, res) => {
         }
 
         // Generamos el token JWT
-        const token = jwt.sign({ userId: user.id, email: user.Email }, 'secret_key', { expiresIn: '1h' });
+        // const token = jwt.sign({ userId: user.id, email: user.Email }, 'secret_key', { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user.id, email: user.Email }, 'secret_key', { expiresIn: '3h' });
+        console.log("🔐Este es mi token🔐:",token)
 
         // Enviamos la respuesta con el token y los datos del usuario
         res.status(200).json({ message: "Inicio de sesión correcto", token });

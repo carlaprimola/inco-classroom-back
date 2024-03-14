@@ -7,8 +7,12 @@ import { authenticateUser } from '../middleware/authMiddleware.js';
 const router = express.Router();
 
 // Ruta para obtener el dashboard del estudiante
-router.get('/', authenticateUser, getStudents);
-router.get('/:id', authenticateUser, getStudentById);
+// router.get('/', authenticateUser, getStudents);
+// router.get('/:id', authenticateUser, getStudentById);
+
+router.get('/', getStudents);
+router.get('/:id', getStudentById);
+
 
 // authenticateStudent,
 export default router;
