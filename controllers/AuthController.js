@@ -3,24 +3,22 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export const loginUser = async (req, res) => {
-    const { Email, Contraseña } = req.body;
+    const { email, password } = req.body;
     try {
         // Buscamos el usuario por su correo electrónico
-        const user = await UsersModel.findOne({ where: { Email: Email } });
+        const user = await UsersModel.findOne({ where: { Email: email } });
         if (!user) {
-            return res.status(400).json({ message: "Este correo no existe" });//no existe este correo
+            return res.status(400).json({ message: "Correo electrónico no válido" });
         }
 
         // Verificamos la contraseña
-        const validPassword = await bcrypt.compare(Contraseña, user.Contraseña);//contraseña invalida
+        const validPassword = await bcrypt.compare(password, user.Contraseña);
         if (!validPassword) {
-            return res.status(400).json({ message: "Contraseña inválida" });
+            return res.status(400).json({ message: "Contraseña incorrecta" });
         }
 
         // Generamos el token JWT
-        // const token = jwt.sign({ userId: user.id, email: user.Email }, 'secret_key', { expiresIn: '1h' });
-        const token = jwt.sign({ userId: user.id, email: user.Email }, 'secret_key', { expiresIn: '3h' });
-        console.log("🔐Este es mi token🔐:",token)
+        const token = jwt.sign({ userId: user.ID, email: user.Email }, 'secret_key', { expiresIn: '3h' });
 
         // Enviamos la respuesta con el token y los datos del usuario
         res.status(200).json({ message: "Inicio de sesión correcto", token });

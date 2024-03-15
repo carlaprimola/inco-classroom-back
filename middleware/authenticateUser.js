@@ -23,7 +23,7 @@ const authenticateUser = async (req, res, next) => {
         // Adjuntar el usuario autenticado al objeto de solicitud para su posterior uso
         req.user = user;
 
-        // Continuar con la ejecución de las siguientes funciones de middleware y controladores
+        
         next();
     } catch (error) {
         // Manejar errores de autenticación
