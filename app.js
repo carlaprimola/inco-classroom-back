@@ -14,7 +14,10 @@ import "dotenv/config.js"
 
 const app = express()
 
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:3000' // Permitir solicitudes desde http://localhost:3000
+}));
+
 app.use(express.json())
 app.use('/cursos', cursosRoutes)
 app.use('/contenido', contentRoutes)

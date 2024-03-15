@@ -2,36 +2,53 @@ import CoursesModel from "../models/CoursesModel.js";
 import ContentModel from "../models/ContentModel.js";
 
 // Método para obtener todos los Cursos
+// export const getCourses = async (req, res) => {
+//     try {
+//         // Obtener el usuario autenticado del objeto de solicitud
+//         const { role } = req.user;
+
+//         let courses;
+
+//         // Verificar el rol del usuario para determinar qué cursos mostrar
+//         if (role === 'Estudiante') {
+//             // Si el usuario es un estudiante, mostrar solo los cursos asociados a ese estudiante
+//             const studentId = req.user.userId; // Suponiendo que el ID del estudiante está en el token
+//             courses = await CoursesModel.findAll({
+//                 where: { studentId },
+//                 include: [ContentModel],
+//             });
+//         } else if (role === 'Docente') {
+//             // Si el usuario es un profesor, mostrar todos los cursos (o filtrar según tu lógica)
+//             courses = await CoursesModel.findAll({
+//                 include: [ContentModel],
+//             });
+//         } else {
+//             // Si el usuario no tiene un rol válido, devolver un error de acceso no autorizado
+//             return res.status(403).json({ message: 'Acceso no autorizado' });
+//         }
+
+//         res.status(200).json(courses);
+//     } catch (error) {
+//         res.status(500).json({ message: "Error al obtener los Cursos", error });
+//     }
+// }
+
+// Método para obtener todos los Cursos
 export const getCourses = async (req, res) => {
     try {
-        // Obtener el usuario autenticado del objeto de solicitud
-        const { role } = req.user;
-
-        let courses;
-
-        // Verificar el rol del usuario para determinar qué cursos mostrar
-        if (role === 'Estudiante') {
-            // Si el usuario es un estudiante, mostrar solo los cursos asociados a ese estudiante
-            const studentId = req.user.userId; // Suponiendo que el ID del estudiante está en el token
-            courses = await CoursesModel.findAll({
-                where: { studentId },
-                include: [ContentModel],
-            });
-        } else if (role === 'Docente') {
-            // Si el usuario es un profesor, mostrar todos los cursos (o filtrar según tu lógica)
-            courses = await CoursesModel.findAll({
-                include: [ContentModel],
-            });
-        } else {
-            // Si el usuario no tiene un rol válido, devolver un error de acceso no autorizado
-            return res.status(403).json({ message: 'Acceso no autorizado' });
-        }
+        // Obtener todos los cursos sin tener en cuenta el rol del usuario
+        const courses = await CoursesModel.findAll({
+            include: [ContentModel],
+        });
 
         res.status(200).json(courses);
     } catch (error) {
         res.status(500).json({ message: "Error al obtener los Cursos", error });
     }
 }
+
+
+
 // Método para obtener un Curso por su ID
 export const getCourseById = async (req, res) => {
     const { id } = req.params;

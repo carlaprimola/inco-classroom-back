@@ -6,11 +6,18 @@ import { verifyToken } from "../middleware/verifyToken.js";
 
 // Rutas protegidas para el controlador de cursos
 const router = express.Router();
-router.get('/', verifyToken, getCourses);
+router.get('/',getCourses);
 router.get('/:id', verifyToken, getCourseById);
 router.post('/', verifyToken, checkPermissions('Docente'), createCourse);
 router.put('/:id', verifyToken, checkPermissions('Docente'), updateCourse);
 router.delete("/:id", verifyToken, checkPermissions('Docente'), deleteCourse);
+
+// const router = express.Router();
+// router.get('/', verifyToken, getCourses);
+// router.get('/:id', verifyToken, getCourseById);
+// router.post('/', verifyToken, checkPermissions('Docente'), createCourse);
+// router.put('/:id', verifyToken, checkPermissions('Docente'), updateCourse);
+// router.delete("/:id", verifyToken, checkPermissions('Docente'), deleteCourse);
 
 
 export default router;
