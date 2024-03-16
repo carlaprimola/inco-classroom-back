@@ -1,16 +1,16 @@
 import express from "express";
 import { createCourse, deleteCourse, updateCourse, getCourseById, getCourses } from "../controllers/CoursesController.js";
 import { checkPermissions } from "../middleware/checkPermissions.js";
-import { verifyToken } from "../middleware/verifyToken.js";
+// import { verifyToken } from "../middleware/verifyToken.js";
 
 
 // Rutas protegidas para el controlador de cursos
 const router = express.Router();
 router.get('/',getCourses);
-router.get('/:id', verifyToken, getCourseById);
-router.post('/', verifyToken, checkPermissions('Docente'), createCourse);
-router.put('/:id', verifyToken, checkPermissions('Docente'), updateCourse);
-router.delete("/:id", verifyToken, checkPermissions('Docente'), deleteCourse);
+router.get('/:id', getCourseById);
+router.post('/', checkPermissions('Docente'), createCourse);
+router.put('/:id', checkPermissions('Docente'), updateCourse);
+router.delete("/:id", checkPermissions('Docente'), deleteCourse);
 
 // const router = express.Router();
 // router.get('/', verifyToken, getCourses);

@@ -19,9 +19,22 @@ const ContentModel = db.define('contenidocursos', {
     },
     Descripcion: {
         type: DataTypes.TEXT,
-        allowNull: true
-    
-    
+        allowNull: true   
+    },
+    Opiniones: {
+        type: DataTypes.STRING
+        },
+    Aptitud1: {
+        type: DataTypes.STRING
+        },  
+    Aptitud2: {
+        type: DataTypes.STRING
+        },     
+    Aptitud3: {
+        type: DataTypes.STRING
+        },     
+    Nivel: {
+        type: DataTypes.STRING
     }
 }, 
         {
