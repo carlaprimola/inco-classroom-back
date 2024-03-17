@@ -1,5 +1,5 @@
 import express from "express"
-import { getContent, getContentById, createContent, deleteContent, updateContent } from "../controllers/contentController.js";
+import { getContent, getContentById, createContent, deleteContent, updateContent } from "../controllers/ContentController.js";
 
 const router = express.Router()
 router.get('/',getContent);

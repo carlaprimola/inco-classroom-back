@@ -28,13 +28,18 @@ export const getContentById = async (req, res) => {
 
 //metodo para crear un temario
 export const createContent = async (req, res) => {
-    const { TituloMaterial, TipoRecurso, Contenido, Descripcion } = req.body;
+    const { TituloMaterial, TipoRecurso, Contenido, Descripcion, Opiniones, Aptitud1, Aptitud2, Aptitud3, Nivel } = req.body;
     try {
         const newContent = await ContentModel.create({
             TituloMaterial,
             TipoRecurso,
             Contenido,
-            Descripcion
+            Descripcion,
+            Opiniones,
+            Aptitud1,
+            Aptitud2,
+            Aptitud3,
+            Nivel
         });
         res.status(201).json(newContent);
     } catch (error) {
@@ -45,7 +50,7 @@ export const createContent = async (req, res) => {
 //metodo para editar un temario
 export const updateContent = async (req, res) => {
     const { id } = req.params;
-    const { TituloMaterial, TipoRecurso, Contenido, Descripcion } = req.body;
+    const { TituloMaterial, TipoRecurso, Contenido, Descripcion, Opiniones, Aptitud1, Aptitud2, Aptitud3, Nivel } = req.body;
     try {
         const contentExistente = await ContentModel.findByPk(id);
         if (!contentExistente) {
@@ -55,7 +60,12 @@ export const updateContent = async (req, res) => {
             TituloMaterial,
             TipoRecurso,
             Contenido,
-            Descripcion            
+            Descripcion,
+            Opiniones,
+            Aptitud1,
+            Aptitud2,
+            Aptitud3, 
+            Nivel            
         });
         res.status(200).json({ message: "Contenido actualizado correctamente" });
     } catch (error) {

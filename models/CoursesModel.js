@@ -17,6 +17,12 @@ const CoursesModel = db.define('cursos', {
     },
     contenidocurso_ID: {
         type: DataTypes.STRING
+    },
+    Docente: {
+        type: DataTypes.STRING
+    },
+    Duracion: {
+        type: DataTypes.STRING
     }
 }, {
     timestamps: false

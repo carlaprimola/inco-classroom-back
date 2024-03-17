@@ -65,12 +65,14 @@ export const getCourseById = async (req, res) => {
 
 // Método para crear un Curso
 export const createCourse = async (req, res) => {
-    const { NombreCurso, imageUrl, contenidocurso_ID } = req.body;
+    const { NombreCurso, imageUrl, contenidocurso_ID, Docente, Duracion } = req.body;
     try {
         const newCourse = await CoursesModel.create({
             NombreCurso,
             imageUrl,
-            contenidocurso_ID
+            contenidocurso_ID, 
+            Docente,
+            Duracion
         });
         res.status(201).json(newCourse);
     } catch (error) {
@@ -81,7 +83,7 @@ export const createCourse = async (req, res) => {
 // Método para editar un Curso
 export const updateCourse = async (req, res) => {
     const { id } = req.params;
-    const { NombreCurso, imageUrl, contenidocurso_ID } = req.body;
+    const { NombreCurso, imageUrl, contenidocurso_ID, Docente, Duracion } = req.body;
     try {
         const CourseExistente = await CoursesModel.findByPk(id);
         if (!CourseExistente) {
@@ -90,7 +92,9 @@ export const updateCourse = async (req, res) => {
         await CourseExistente.update({
             NombreCurso,
             imageUrl,
-            contenidocurso_ID
+            contenidocurso_ID,
+            Docente,
+            Duracion
         });
         res.status(200).json({ message: "Curso actualizado correctamente" });
     } catch (error) {
