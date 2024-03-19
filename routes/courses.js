@@ -8,9 +8,9 @@ import { checkPermissions } from "../middleware/checkPermissions.js";
 const router = express.Router();
 router.get('/',getCourses);
 router.get('/:id', getCourseById);
-router.post('/', checkPermissions('Docente'), createCourse);
-router.put('/:id', checkPermissions('Docente'), updateCourse);
-router.delete("/:id", checkPermissions('Docente'), deleteCourse);
+router.post('/', createCourse);
+router.put('/:id',  updateCourse);
+router.delete("/:id",  deleteCourse);
 
 // const router = express.Router();
 // router.get('/', verifyToken, getCourses);
