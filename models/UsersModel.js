@@ -25,6 +25,10 @@ const UsersModel = db.define('usuarios', {
     roles_ID: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    imgProfile: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
     
 }, 

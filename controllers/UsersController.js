@@ -31,7 +31,7 @@ export const getUserById = async (req, res) => {
 }
 
 export const createUser = async (req, res) => {
-    const { Nombre, Email, Contraseña, roles_ID } = req.body;
+    const { Nombre, Email, Contraseña, roles_ID, imgProfile } = req.body;
     try {
         // Verificar si el correo electrónico ya está en uso
         const existingUser = await UsersModel.findOne({ where: { Email: Email } });
@@ -46,7 +46,8 @@ export const createUser = async (req, res) => {
             Nombre,
             Email,
             Contraseña: hashedPassword,
-            roles_ID
+            roles_ID,
+            imgProfile
         });
 
         // Generar el token JWT
@@ -63,7 +64,7 @@ export const createUser = async (req, res) => {
 // Método para actualizar un User
 export const updateUser = async (req, res) => {
     const { id } = req.params;
-    const { Nombre, Email, Contraseña } = req.body; // Se elimina TipoUser ya que no está en el modelo
+    const { Nombre, Email, Contraseña, imgProfile } = req.body; // Se elimina TipoUser ya que no está en el modelo
     try {
         const UserExistente = await UsersModel.findByPk(id);
         if (!UserExistente) {
@@ -72,7 +73,8 @@ export const updateUser = async (req, res) => {
         await UserExistente.update({
             Nombre,
             Email,
-            Contraseña
+            Contraseña, 
+            imgProfile
         });
         res.status(200).json({ message: "User actualizado correctamente" });
     } catch (error) {
