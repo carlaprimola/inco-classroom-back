@@ -1,6 +1,6 @@
 import {Sequelize} from 'sequelize'
-const db = new Sequelize('incodb','admin','12345678', {
-   host:'inco-db.cvmg4a04y9b6.eu-north-1.rds.amazonaws.com',
+const db = new Sequelize('inco','inco','W#84pqf85', {
+   host:'49.13.192.32',
    dialect:'mysql'
 });
 

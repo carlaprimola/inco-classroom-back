@@ -18,13 +18,14 @@ export const loginUser = async (req, res) => {
         }
 
         const user_id = user.ID
+        const tipoRol = user.roles_ID
 
         // Generamos el token JWT
         const token = jwt.sign({ userId: user.ID, email: user.Email }, 'secret_key', { expiresIn: '3h' });
 
         // Enviamos la respuesta con el token y los datos del usuario
         res.header({"userstoken":token })
-        res.status(200).json({ message: "Inicio de sesión correcto", token, user_id});
+        res.status(200).json({ message: "Inicio de sesión correcto", token, user_id, tipoRol });
     } catch (error) {
         res.status(500).json({ message: "Error en el inicio de sesión", error });
     }
