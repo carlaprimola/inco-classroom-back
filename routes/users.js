@@ -21,7 +21,7 @@ import { createUser, deleteUser, updateUser, getUserById, getUsers } from "../co
 const routes = express.Router();
 
 // Ruta protegida con el middleware verifyToken
-routes.get('/', verifyToken, getUsers);
+routes.get('/', getUsers);
 
 // Otras rutas sin protección
 routes.get('/:id', getUserById);
