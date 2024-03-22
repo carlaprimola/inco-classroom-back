@@ -1,16 +1,6 @@
 import CalendarModel from "../models/CalendarModel.js";
 import CoursesModel from "../models/CoursesModel.js"
 
-// Sincronizar el modelo con la base de datos
-CalendarModel.sync()
-  .then(() => {
-    console.log('Modelo de calendario sincronizado correctamente con la base de datos');
-    
-  })
-  .catch(error => {
-    console.error('Error al sincronizar el modelo de calendario con la base de datos:', error);
-  });
-
 
   // Mostrar todos los eventos
   export const getCalendarEvents = async (req, res) => {
