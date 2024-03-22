@@ -53,7 +53,7 @@ export const getCourses = async (req, res) => {
 export const getCourseById = async (req, res) => {
     const { id } = req.params;
     try {
-        const Course = await CoursesModel.findByPk(id);
+        const Course = await CoursesModel.findByPk(id,{ include: ContentModel });
         if (!Course) {
             return res.status(404).json({ message: "Curso no encontrado" });
         }

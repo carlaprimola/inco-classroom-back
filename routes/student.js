@@ -7,7 +7,7 @@ import {verifyToken } from '../middleware/verifyToken.js';
 const router = express.Router();
 
 router.get('/', getStudents);
-router.get('/:id',getStudentById);
+router.get('/:id',  getStudentById);
 
 // authenticateStudent,
 export default router;
