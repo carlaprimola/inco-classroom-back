@@ -8,6 +8,7 @@ import usersRoutes from './routes/users.js'
 import contentRoutes from './routes/content.js'
 import studentRoutes from './routes/student.js'
 import authRoutes from './routes/auth.js'
+import calendarRoutes from './routes/calendar.js'
 import "dotenv/config.js"
 
 // require('dotenv').config();
@@ -24,7 +25,7 @@ app.use('/contenido', contentRoutes)
 app.use('/usuarios', usersRoutes)
 app.use('/student', studentRoutes)
 app.use('/login', authRoutes) 
-
+app.use('/calendario', calendarRoutes)
 
 try {
     await db.authenticate()
