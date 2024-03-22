@@ -8,6 +8,14 @@ const AcademicTrackingModel = db.define('seguimientoacademico', {
         autoIncrement: true,
         allowNull: false
     },
+    Curso:{
+        type: DataTypes.STRING,
+        allowNull:false
+    },
+    Actividades: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
     Comentarios: {
         type: DataTypes.TEXT,
         allowNull: true
@@ -16,10 +24,12 @@ const AcademicTrackingModel = db.define('seguimientoacademico', {
         type: DataTypes.DECIMAL(4, 2),
         defaultValue: null
     },
-    Evaluaciones: {
-        type: DataTypes.TEXT,
-        allowNull: true
-    }}, 
+    Estado: {
+        type: DataTypes.ENUM('Calificado', 'Pendiente'),
+        allowNull: false,
+        defaultValue: 'Pendiente'
+    }
+}, 
     {
     timestamps:false,
     tableName: 'seguimientoacademico'
