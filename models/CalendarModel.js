@@ -14,7 +14,7 @@ const CalendarModel = db.define('calendario', {
         allowNull: true
     },
     Fecha: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true
     },
     DescripcionActividad: {
@@ -25,10 +25,7 @@ const CalendarModel = db.define('calendario', {
         type: DataTypes.TEXT,
         allowNull: true
     },
-    Hora: {
-        type: DataTypes.TIME,
-        allowNull: true
-    },
+    
 },{
     timestamps: false
 

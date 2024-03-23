@@ -17,11 +17,11 @@ import moment from "moment-timezone";
 
 // Crear nuevo evento
 export const createCalendarEvent = async (req, res) => {
-    const { CursoID, Fecha, DescripcionActividad, Direccion, Hora } = req.body;
+    const { CursoID, Fecha, DescripcionActividad, Direccion } = req.body;
     try {
         // Ajusta la fecha y hora a la zona horaria del servidor
         const fechaServidor = moment.tz(Fecha, 'UTC').toDate(); 
-        const horaServidor = moment.tz(Hora, 'UTC').toDate(); 
+         
 
 
         const newEvent = await CalendarModel.create({
@@ -29,7 +29,7 @@ export const createCalendarEvent = async (req, res) => {
             Fecha: fechaServidor,
             DescripcionActividad,
             Direccion,
-            Hora: horaServidor
+            
         });
         res.status(201).json({ message: "Nuevo evento creado correctamente", event: newEvent });
     } catch (error) {
