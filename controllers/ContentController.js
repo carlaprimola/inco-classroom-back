@@ -74,8 +74,6 @@ export const updateContent = async (req, res) => {
 }
 
 //metodo para eliminar un temario
-
-//metodo para eliminar un temario
 export const deleteContent = async (req, res) => {
     const { id } = req.params;
     try {

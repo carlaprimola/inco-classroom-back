@@ -42,80 +42,43 @@ export const getStudents = async (req, res) => {
 };
 
 
-
-// export const getStudents = async (req, res) => {
-//     try {
-//         // Obtener información del usuario asociado al token de acceso
-//         const decodedUser = req.user; // Suponiendo que el middleware haya decodificado y almacenado la información del usuario en req.user
-
-//         // Filtrar estudiantes por el ID del usuario asociado al token de acceso
-//         const studentsInfo = await StudentModel.findAll({
-//             include: [
-//                 {
-//                     model: UsersModel,
-//                     where: { ID: decodedUser.ID } // Filtrar por el ID del usuario
-//                 },
-//                 {
-//                     model: CoursesModel,
-//                     include: [
-//                         {
-//                             model: ContentModel,
-//                         },
-//                     ],
-//                 },
-//                 AcademicTrackingModel,
-//             ],
-//         });
-
-//         res.status(200).json(studentsInfo);
-//         console.log("Ficha estudiantes 📕 ", studentsInfo);
-//     } catch (error) {
-        
-//         res.status(500).json({ message: "Error al obtener la información de los estudiantes", error });
-//         console.error("Error al obtener la información de los estudiantes:", error);
-//     }
-// };
-
-
 export const getStudentById = async (req, res) => {
     try {
         const { id } = req.params;
-        const role = await RolesModel.findOne({ where: { TipoRol: 'Estudiante' }});
+        const role = await RolesModel.findOne({ where: { TipoRol: 'Estudiante' } });
 
-        if (role) {
-            const studentInfo = await StudentModel.findOne({
-                where: { ID: id },
-                include: [
-                    {
-                        model: UsersModel,
-                        where: { roles_ID: role.ID }
-                    },
-                    {
-                        model: CoursesModel,
-                        include: [
-                            {
-                                model: ContentModel,
-                            },
-                        ],
-                    },
-                    AcademicTrackingModel,
-                ],
-            });
-
-            if (!studentInfo) {
-                return res.status(404).json({ message: "Estudiante no encontrado" });
-            }
-
-            res.status(200).json(studentInfo);
-        } else {
-            res.status(404).json({ message: 'No se encontró el rol de Estudiante' });
+        if (!role) {
+            return res.status(404).json({ message: 'No se encontró el rol de Estudiante' });
         }
+
+        const studentInfo = await StudentModel.findOne({
+            where: { usuarios_ID: id },
+            include: [
+                {
+                    model: UsersModel,
+                    where: { roles_ID: role.ID }
+                },
+                {
+                    model: CoursesModel,
+                    include: [
+                        {
+                            model: ContentModel,
+                        },
+                    ],
+                },
+                {
+                    model: AcademicTrackingModel // Incluir seguimiento académico asociado al estudiante
+                }
+            ],
+        });
+
+        if (!studentInfo) {
+            return res.status(404).json({ message: 'Estudiante no encontrado' });
+        }
+
+        res.status(200).json(studentInfo);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Error al obtener la información del estudiante", error });
+        res.status(500).json({ message: 'Error al obtener la información del estudiante', error });
     }
 };
-
-
-
-
