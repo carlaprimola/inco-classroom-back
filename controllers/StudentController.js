@@ -41,42 +41,6 @@ export const getStudents = async (req, res) => {
     }
 };
 
-
-
-// export const getStudents = async (req, res) => {
-//     try {
-//         // Obtener información del usuario asociado al token de acceso
-//         const decodedUser = req.user; // Suponiendo que el middleware haya decodificado y almacenado la información del usuario en req.user
-
-//         // Filtrar estudiantes por el ID del usuario asociado al token de acceso
-//         const studentsInfo = await StudentModel.findAll({
-//             include: [
-//                 {
-//                     model: UsersModel,
-//                     where: { ID: decodedUser.ID } // Filtrar por el ID del usuario
-//                 },
-//                 {
-//                     model: CoursesModel,
-//                     include: [
-//                         {
-//                             model: ContentModel,
-//                         },
-//                     ],
-//                 },
-//                 AcademicTrackingModel,
-//             ],
-//         });
-
-//         res.status(200).json(studentsInfo);
-//         console.log("Ficha estudiantes 📕 ", studentsInfo);
-//     } catch (error) {
-        
-//         res.status(500).json({ message: "Error al obtener la información de los estudiantes", error });
-//         console.error("Error al obtener la información de los estudiantes:", error);
-//     }
-// };
-
-
 export const getStudentById = async (req, res) => {
     try {
         const { id } = req.params;
