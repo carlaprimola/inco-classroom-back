@@ -22,7 +22,7 @@ const routes = express.Router();
 
 // Ruta protegida con el middleware verifyToken
 routes.get('/',verifyToken, getUsers);
-routes.get('/:id',getUserById);
+routes.get('/:id',verifyToken, getUserById);
 // Otras rutas sin protección
 routes.post('/', createUser);
 routes.put('/:id', updateUser);

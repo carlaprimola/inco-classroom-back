@@ -7,7 +7,8 @@ import bcrypt from "bcrypt";
 export const getUsers = async (req, res) => {
     try {
         const Users = await UsersModel.findAll({
-            include: [RolesModel],
+            attributes: { exclude: ['Contraseña'] }, // Excluir el campo de la contraseña de la respuesta
+            include: RolesModel 
         });
         res.status(200).json(Users);
     } catch (error) {
@@ -20,7 +21,11 @@ export const getUsers = async (req, res) => {
 export const getUserById = async (req, res) => {
     const { id } = req.params;
     try {
-        const User = await UsersModel.findByPk(id, { include: RolesModel });
+        const User = await UsersModel.findByPk(id, { 
+            attributes: { exclude: ['Contraseña'] }, // Excluye el campo de contraseña de la respuesta
+            include: RolesModel 
+        });
+        
         if (!User) {
             return res.status(404).json({ message: "Usuario no encontrado" });
         }
