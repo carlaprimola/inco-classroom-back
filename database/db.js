@@ -1,8 +1,10 @@
 import {Sequelize} from 'sequelize'
-
-const db = new Sequelize('incodb','admin','12345678',{
-   host:'inco-db.cvmg4a04y9b6.eu-north-1.rds.amazonaws.com',
-   dialect:'mysql'
+const db = new Sequelize('inco','inco','W#84pqf85', {
+   host:'49.13.192.32',
+   dialect:'mysql',
+   define: {
+      freezeTableName: true // Esto desactiva la pluralización automática de Sequelize
+  }
 });
 
 export default db
@@ -10,4 +12,3 @@ export default db
 
 
 
-//  conexion a la base de datos

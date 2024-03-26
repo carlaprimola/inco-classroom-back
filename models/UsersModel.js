@@ -1,21 +1,49 @@
-import db from '../database/db.js'
-import { DataTypes } from 'sequelize'
+import db from '../database/db.js';
+import { DataTypes } from 'sequelize';
+import RolesModel from './RolesModel.js';
 
-const UsersModel = db.define('usuarios',{
-    
-    Nombre:{type:DataTypes.TEXT},
-    Email:{type:DataTypes.TEXT},
-    Contraseña:{type:DataTypes.TEXT},
-    TipoUsuario: { 
-        type: DataTypes.ENUM('Estudiante', 'Docente', 'Administrador'),
-        defaultValue: 'Estudiante' // Puedes establecer un valor predeterminado si lo deseas
+
+const UsersModel = db.define('usuarios', {
+    ID: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
+    },
+    Nombre: {
+        type: DataTypes.STRING,
+        allowNull:true
+    },
+    Email: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    Contraseña: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    roles_ID: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    imgProfile: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
-   
-},
+    
+}, 
 {
-    timestamps: false, // Desactivar control de tiempo de creación y actualización
+    timestamps: false,
+    // Configuración de la referencia de la clave foránea
+    references: {
+        model: RolesModel,
+        key: 'ID'
+    }
 });
 
+UsersModel.belongsTo(RolesModel, { foreignKey: 'roles_ID' });
 
-export default UsersModel
+
+export default UsersModel;
+
 
