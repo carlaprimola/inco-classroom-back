@@ -82,3 +82,35 @@ export const getStudentById = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener la información del estudiante', error });
     }
 };
+
+//Mostrar los cursos del estudiante
+export const getStudentCourses = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const student = await StudentModel.findOne({ where: { ID: id } });
+
+        if (!student) {
+            return res.status(404).json({ message: "Estudiante no encontrado" });
+        }
+
+        const studentID = student.dataValues.ID; 
+
+        
+        const studentCourses = await CoursesModel.findAll({
+            where: { ID: studentID }, 
+            include: [
+                {
+                    model: ContentModel,
+                },
+            ],
+        });
+        
+        res.status(200).json(studentCourses);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error al obtener los cursos del estudiante", error });
+    }
+};
+
+
+

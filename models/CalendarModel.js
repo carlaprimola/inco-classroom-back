@@ -9,16 +9,28 @@ const CalendarModel = db.define('calendario', {
         autoIncrement: true,
         allowNull: false
     },
-    Date: {
-        type: DataTypes.DATE,
+    CursoID: {
+        type: DataTypes.INTEGER,
         allowNull: true
     },
-    ActivityDescription: {
+    Fecha: {
+        type: DataTypes.DATEONLY,
+        allowNull: true
+    },
+    DescripcionActividad: {
         type: DataTypes.TEXT,
         allowNull: true
-    }
+    },
+    Direccion: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
+    
+},{
+    timestamps: false
+
 });
 
-CalendarModel.belongsTo(CoursesModel, { foreignKey: 'CourseID' });
+CalendarModel.belongsTo(CoursesModel, { foreignKey: 'CursoID' });
 
 export default CalendarModel;
