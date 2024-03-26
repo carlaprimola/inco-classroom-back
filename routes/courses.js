@@ -15,8 +15,8 @@ import { verifyToken } from "../middleware/verifyToken.js";
 // Rutas protegidas para el controlador de cursos
 
 const router = express.Router();
-router.get('/', verifyToken, getCourses);
-router.get('/:id', verifyToken, getCourseById);
+router.get('/',verifyToken, getCourses);
+router.get('/:id',verifyToken, getCourseById);
 //asegurando que el usuario ha iniciado sesión y que solo puede acceder el docente
 router.post('/', verifyToken, checkPermissions('Docente'), createCourse);
 router.put('/:id', verifyToken, checkPermissions('Docente'), updateCourse);
